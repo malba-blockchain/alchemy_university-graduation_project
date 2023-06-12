@@ -1,4 +1,4 @@
-Final project theme: Showing Smart Contract Functionality via Custom Unit Tests
+﻿Final project theme: Showing Smart Contract Functionality via Custom Unit Tests
 
 Project Name: DeFi as a financing method for organizations. Real world asset tokenization.
 
@@ -42,6 +42,7 @@ Benefits of the solution:
 
 7. Organizations can have access to global liquidity, exposing their projects to the capital of international investors in the whole LatAm region looking for promising ventures.
 
+8. The organization stablishes the interest rate based on the profitability of the project instead of being subject to the excesive rates of traditional finance
 
 
 Detail of the solution:
@@ -53,7 +54,6 @@ At this point in time, there are two possible (and last resource) options to MIT
 2. The debt is not collateralized by equity shares but in the case of default from the issuer, the debt will be managed by a local collection company and the issuer will be reported to financial information centers, this negatively impacts the access to future obligations.
 
 
-
 However the negative impact on investors of the default risk can also be PREVENTED and REDUCTED with the following points:
 
 1. Due dilligence and background checks on the issuer before creating a Project Campaing
@@ -62,3 +62,108 @@ However the negative impact on investors of the default risk can also be PREVENT
 4. Delivery of funds to the issuer based on the achievement of milestones to guarantee the success of the project
 5. Usage of on-chain insurance solutions
 5. Waterfall model for investors, creating trenches of risks/ROI, based on the risk appetite of each investor
+
+
+--------------DONE---------------
+
+1. Use cases definition: The deployer of the smart contract can be the issuer.
+
+1.1- Definition of parameters that the issuer will establish at the beginning of the creation of the smart contract
+-builder function
+MODIFIER:N/A
+VALIDATIONS: name(>10 <40 lenght), symbol (>2 <4 lenght), decimals(integer), totalSupply(>1000), interestRate(>0), frequencyInterestPayments(1-#), frequencyPrincipalPayments(1-#), gracePeriodInterestPayments(1-#), gracePeriodPrincipalPayments(1-#), term(12-60), industry(not null), category(not null).
+
+1.2- Start campaing - the issuer starts the campaing the date they want to with a simple click
+MODIFIER: onlyOwner
+VALIDATIONS: campaingStage(newCampaing)
+
+1.3- Deposit of investment: Deposit of stablecoins by investors, to obtain security tokens in exchange to support the debt.
+-For every 10 USD received by the smart contract, 1 token is registered in the mapping (addr-uint) of the token
+MODIFIER: isInFundingStage
+VALIDATIONS: msg.value(>10 USD TOKEN), msg.value(multiple of 10).
+
+1.4- Validation of milestone by investors
+-The issuer uploads evidence of its progress (off-chain) and investors vote to advance to the next milestone
+MODIFIER: investorHasNoVotedYet
+VALIDATIONS: isInValidationPhase, countVotes on stage = true > numberOfInvestors/2+1
+
+
+1.5- Progressive withdraw of disbursement of invested funds to the issuer, based on validation of milestones. 3 phases.
+-Fund disbursement function that is executed if the number of votes is sufficient
+MODIFIER: onlyOwner
+VALIDATIONS: isinWithdrawalPhase1-2-3, ammount to withdraw (>10 USD)
+
+
+1.6- Receipt of debt payments from the issuer to the smart contract
+-Once the issuer enters the debt payment phase, it is possible to make transfers to the smart contract to start paying the debt. The smart contract automatically assigns the balance to each investor address based on the number of tokens it owns.
+MODIFIER: onlyOwner
+VALIDATIONS: isInPaymentPhase, ammount to pay (>10 USD)
+
+
+1.7- Dispersion of payments to each of the investors based on their contributions/tokens currently in possession
+The user must enter the smart contract and make the payment claim to his address, making a token transaction
+MODIFIER: 
+VALIDATIONS: isInPaymentPhase, amount(>10 USD <balanceOfActualFunds)
+
+
+1.8- Retake investment, withdraw the total of funds left in case the investors dont approve the next payment phase.
+-In the case the number of votes doesnt reach the treshold for the next payment phase, investors can take back their funds as in the usual dispersion of payments, based on the amount of tokens they hold.
+
+MODIFIER: 
+VALIDATIONS: isInAbortedPhase, amount(>10 <balanceOfActualFunds)
+
+
+2. Use class diagram to represent design
+
+3. Define the visibility for the state variables and functions
+
+4. Define access modifiers for the functions
+
+5. Define validations for input variables of the functions
+
+6. Define conditions that must hold true
+
+
+7. Define flux state diagrams https://www.researchgate.net/figure/UML-class-diagram-representing-ARC-721_fig4_359735111
+
+7.1-Issuer creates campaing
+Issuer adds all the information to the smart contract
+
+7.2-Issuer starts campaing
+Issuer executes startFunding function
+
+7.3-Investor deposits investment
+Investor executes deposit investment function with the value that wants to deposit
+
+7.4-Investor validates milestone
+Investor executes validate milestone function
+
+7.5-Issuer withdraws funds of milestone
+Issuer executes withdrawFundsOfMilestone function with the required amount
+
+7.6-Issuer pays debt based on periodicity
+Issuer executes payDebt function with the expected amount based on periodicity and rates
+
+7.7-Investor withdraws payments
+Investor executes withdrawPaymentsToInvestor with the required amount to retire
+
+7.8-Investor retakes investment
+Investor executes retake investment function to withdraw all the funds asociated to his account
+
+
+8. Define main summary diagram of the protocol
+-Backers
+-Investors
+-Issuers
+-Platform
+-Campaing
+-Pool
+
+--------------ToDo---------------
+
+
+
+
+
+
+7. Express conditions that were discovered (program)
