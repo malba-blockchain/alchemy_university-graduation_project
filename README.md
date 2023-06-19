@@ -1,4 +1,4 @@
-﻿Final project theme: Showing Smart Contract Functionality via Custom Unit Tests
+Final project theme: Showing Smart Contract Functionality via Custom Unit Tests
 
 Project Name: DeFi as a financing method for organizations. Real world asset tokenization.
 
@@ -161,9 +161,9 @@ Investor executes retake investment function to withdraw all the funds asociated
 
 --------------ToDo---------------
 
+7. Express conditions that were discovered
+
+Token ERC-721 
 
 
-
-
-
-7. Express conditions that were discovered (program)
+8. Program
