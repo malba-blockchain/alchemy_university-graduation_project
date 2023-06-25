@@ -163,7 +163,9 @@ Investor executes retake investment function to withdraw all the funds asociated
 
 7. Express conditions that were discovered
 
-Token ERC-721 
+Token ERC-20
 
 
 8. Program
+
+9. Create flux diagram of states

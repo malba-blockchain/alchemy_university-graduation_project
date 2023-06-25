@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.2 <0.9.0;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
@@ -94,18 +94,17 @@ contract TokenMVP is ERC20, Pausable, Ownable {
      Constructor definition
     */
 
-    constructor(uint256 _investmentGoal, uint32 _interestRate, FrequencyTerms _paymentFrequency, uint32 _totalRepayments, 
-        uint32 _repaymentGracePeriod, string memory _industry, 
-        string memory _category) ERC20("TokenMVP", "TMVP") {
+    constructor(uint256 _investmentGoal, uint32 _interestRate, FrequencyTerms _paymentFrequency, 
+        uint32 _totalRepayments, uint32 _repaymentGracePeriodDays, string memory _industry, 
+        string memory _category, address _usdcTokenAddress) ERC20("TokenMVP", "TMVP") {
         
         /*
         External libraries parameters
         */
 
-        //USDC token ethereum address 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
-        usdcToken = USDCToken(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
+        //USDC token in ethereum mainnet address 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+        usdcToken = USDCToken(_usdcTokenAddress);
         
-
         /*
         Add value checks to each parameter
         */
@@ -118,17 +117,16 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         //The enum data type doesnt require parameter validation
         paymentFrequency = _paymentFrequency;
 
-
-        require(_repaymentGracePeriod>=0 && _repaymentGracePeriod<=90 , "Repayment grace period must be between 0 and 90 days");
-        repaymentGracePeriod = _repaymentGracePeriod;
+        require(_repaymentGracePeriodDays>=0 && _repaymentGracePeriodDays<=90 , "Repayment grace period must be between 0 and 90 days");
+        repaymentGracePeriod = _repaymentGracePeriodDays;
 
         require(_totalRepayments>=4, "Total number of repayments must be at least 4");
         totalRepayments = _totalRepayments;
 
-        //No requirements for industry name for now
+        require( bytes(_industry).length>0 , "The industry parameter can not be empty");
         industry = _industry;
 
-        //No requirements for category name for now
+        require( bytes(_category).length>0 , "The category parameter can not be empty");
         category = _category;
 
         /*
@@ -142,7 +140,7 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         _mint(msg.sender, investmentGoal/10);
 
         //Emit the event to log the related information
-        emit CampaignCreated(msg.sender, campaignID, _interestRate, _paymentFrequency, _totalRepayments, _repaymentGracePeriod, _industry, _category);
+        emit CampaignCreated(msg.sender, campaignID, _interestRate, _paymentFrequency, _totalRepayments, _repaymentGracePeriodDays, _industry, _category);
     }
 
     /*
@@ -174,8 +172,12 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         //Validate the campaign phase is IN_FUNDING
         require(currentPhase == CampaignPhase.IN_FUNDING, "The campaign is not in funding phase");
         
-        //Validate the ammount to recieve. Greater than 10 and multiple of 10
-        require(_amount >= 10 && _amount%10 == 0, "Amount to deposit must be greater than 10");
+        //Validate the amount to recieve. Greater than 10 and multiple of 10
+        require(_amount >= 10 && _amount%10 == 0, "Amount to deposit must be greater than 10 and multiple of 10");
+
+        //Validate the amount to recieve. Less than is required to be totally funded
+        uint256 amountLeftToInvest = investmentGoal-currentlyInvestedFunds;
+        require(_amount<=amountLeftToInvest, "Amount to deposit must be less, otherwise exceeds the invesment goal");
 
         //Recieve the transfer of the USDC token
         usdcToken.transferFrom(msg.sender, address(this), _amount);
