@@ -11,6 +11,8 @@ npm install @openzeppelin/contracts
 
 npm install @nomiclabs/hardhat-etherscan 
 
+npm install --save-dev @nomicfoundation/hardhat-network-helpers
+
 npx hardhat clean
 
 npx hardhat compile
@@ -19,16 +21,20 @@ npx hardhat compile
 
 npx hardhat run scripts/deploy.js --network sepolia
 
-(optional) npx hardhat verify --network sepolia 0x59D756185FB31964D123634dCDC34961c3d0fdc6 <single parameter> --show-stack-traces
+(optional) npx hardhat verify --network sepolia 0x493320476b4B320E213EBB37A70c2F820c17667b<single parameter> --show-stack-traces
 
-npx hardhat verify --network sepolia --constructor-args arguments.js 0x59D756185FB31964D123634dCDC34961c3d0fdc6
+npx hardhat verify --network sepolia --constructor-args arguments.js 0x493320476b4B320E213EBB37A70c2F820c17667b
 
-npm install --save-dev @nomicfoundation/hardhat-network-helpers
-
-https://sepolia.etherscan.io/address/0x59D756185FB31964D123634dCDC34961c3d0fdc6#code
+SMART CONTRACT DEPLOYED: https://sepolia.etherscan.io/address/0x493320476b4B320E213EBB37A70c2F820c17667b
 
 npx hardhat test
 
+npm install hardhat-gas-reporter
+
+
+----------ERC20TokenUSDC-------------
+
+https://sepolia.etherscan.io/token/0x03c7ecba628bf6ddc1582cf68173eea4bd1d65f0#code
 
 
 ---------------DONE---------------
@@ -41,9 +47,6 @@ Test #2 Start funding campaign
 Test #3 Deposit of investment
 Test #3.x Deposit of investment with all wrong parameters
 
-
----------------ToDo---------------
-
 Test #4 Drop tokens to investors
 
 Test #5 Withdraw funds to issuer
@@ -52,7 +55,7 @@ Test #5.x Withdraw funds to issuer with all wrong parameters
 Test #6 Repayment of debt
 Test #6.x Repayment of debt with all wrong parameters
 
-Test #7 Withdraw payments to investor
+Test #7 Withdraw repayments to investor
 Test #7.x Repayment of debt with all wrong parameters
 
 Test #8 Abort campaign
@@ -60,6 +63,9 @@ Test #8 Abort campaign
 Test #9 Retake investment
 Test #9.x Retake investment with all wrong parameters
 
-Test #10. Extract funds in a malicious way
-At least 5 attempts to extract the money along the phases
+Test #10. Make addittional code review to verify good practices have been implemented
+
+---------------ToDo---------------
+
+
 

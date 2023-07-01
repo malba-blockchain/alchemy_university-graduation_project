@@ -13,7 +13,7 @@ async function main() {
   // if you need to add constructor arguments for the particular game, add them here:
   //PARAMETERS: Investment goal, interest rate, payment frequency (0:montly - 1: bymonthly - 2:quarterly)
   //total repayments, repayment grace period, industry, category
-  const tokenMVP = await TokenMVP.deploy(50000, 15, 1, 12, 60, "E-commerce", "Expansion");
+  const tokenMVP = await TokenMVP.deploy(50000, 15, 1, 12, 60, "E-commerce", "Expansion", "0x03C7ECbA628Bf6dDc1582CF68173eEA4BD1D65F0");
   console.log(`${contractName} deployed to address: ${tokenMVP.address}`);
 }
 

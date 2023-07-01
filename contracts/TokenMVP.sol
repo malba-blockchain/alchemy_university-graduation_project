@@ -4,12 +4,14 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 
 interface USDCToken {
     function transfer(address dst, uint wad) external returns (bool);
     function transferFrom(address src, address dst, uint wad) external returns (bool);
     function balanceOf(address guy) external view returns (uint);
+    function approve(address dst, uint wad) external returns (bool);
 }
 
 contract TokenMVP is ERC20, Pausable, Ownable {
@@ -29,7 +31,7 @@ contract TokenMVP is ERC20, Pausable, Ownable {
 
     uint256 public repayedDebtAmount;
 
-    uint256 public numberOfInverstors;
+    uint256 public numberOfInvestors;
 
     mapping(uint256=> address) public indexOfInvestorAddresses;
 
@@ -108,10 +110,10 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         /*
         Add value checks to each parameter
         */
-        require(_investmentGoal>=30000, "Investment goal must be greater than 30000 USD");
+        require(_investmentGoal>=30000 && _investmentGoal<=1000000, "Investment goal must be greater than 30K USD and less than 1M USD");
         investmentGoal = _investmentGoal;
 
-        require(_interestRate>=5, "Interest rate must be greater than 5 %");
+        require(_interestRate>=5 && _interestRate<=60, "Interest rate must be greater than 5% and less than 60%");
         interestRate = _interestRate;
 
         //The enum data type doesnt require parameter validation
@@ -120,7 +122,7 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         require(_repaymentGracePeriodDays>=0 && _repaymentGracePeriodDays<=90 , "Repayment grace period must be between 0 and 90 days");
         repaymentGracePeriod = _repaymentGracePeriodDays;
 
-        require(_totalRepayments>=4, "Total number of repayments must be at least 4");
+        require(_totalRepayments>=4 && _totalRepayments<=48, "Total number of repayments must be at least 4 and less than 48");
         totalRepayments = _totalRepayments;
 
         require( bytes(_industry).length>0 , "The industry parameter can not be empty");
@@ -180,11 +182,15 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         require(_amount<=amountLeftToInvest, "Amount to deposit must be less, otherwise exceeds the invesment goal");
 
         //Recieve the transfer of the USDC token
-        usdcToken.transferFrom(msg.sender, address(this), _amount);
+        bool sent =  usdcToken.transferFrom(msg.sender, address(this), _amount);
+        require(sent, "Error on making USDC investment deposit");
+       
 
-        //If the investor is depositing for first time, increase the number of investors by 1
-        if(balanceOfInvestedFunds[msg.sender] == 0) {
-            numberOfInverstors++;
+        //If the investor is depositing for first time, increase the number of investors by 1 and index them
+
+        if (balanceOfInvestedFunds[msg.sender] == 0 && investorIsAlreadyIndexed(msg.sender) == false) {
+            indexOfInvestorAddresses[numberOfInvestors] = msg.sender;
+            numberOfInvestors++;
         }
 
         //Update the balance of invested funds for that investor
@@ -229,13 +235,21 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         require(currentPhase == CampaignPhase.FUNDED, "The campaign is not in funded phase, so can not drop the tokens");
 
         //Execute for to drop the tokens
-        for (uint256 i = 0; i < numberOfInverstors; i++) {
+        for (uint256 i = 0; i < numberOfInvestors; i++) {
 
             //Obtain the address of the current investor in the index of investor addresses
-            address addressToTransfer = indexOfInvestorAddresses[i];
+            address payable investorAddressToTransfer =  payable(indexOfInvestorAddresses[i]);
 
             //Drop the tokens based on the stored balance of invested funds. 10 USD = 1 token
-            transfer(addressToTransfer, balanceOfInvestedFunds[addressToTransfer]/10);
+            uint256 tokensToDropToInvestor = balanceOfInvestedFunds[investorAddressToTransfer]/10;
+
+            //Approve the transaction of tokens for each investor
+            bool approved = approve(investorAddressToTransfer, tokensToDropToInvestor);
+            require(approved, "Error on approving the tokens to investor");
+
+            //Transfer tokens to investor
+            bool sent = transfer(investorAddressToTransfer, tokensToDropToInvestor);
+            require(sent, "Error on dropping tokens to investor");
         }
 
         //Update the phase of the campaign from FUNDED TO IN_FUNDING_USAGE
@@ -253,8 +267,12 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         //Validate the campaign phase is IN_FUNDING_USAGE
         require(currentPhase == CampaignPhase.IN_FUNDING_USAGE, "The campaign is not in funding usage phase, so it can not withdraw invested funds");
 
+        //Validate the amount to withgraw is more than 10 USD and less than the total funded
+        require(_amount >= 10 && _amount <= currentlyInvestedFunds, "The amount to withdraw must be greater than 10 USD and less than the total funded");
+
         //Transfer USDC that the smart contract has to the owner address
-        usdcToken.transfer(owner(), _amount);
+        bool sent =  usdcToken.transfer(owner(), _amount);
+        require(sent, "Error on making funds withdrawal to issuer");
 
         //Update the phase of the campaign from IN_FUNDING_USAGE to IN_REPAYMENT
         currentPhase = CampaignPhase.IN_REPAYMENT;
@@ -270,21 +288,27 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         //Validate the campaign phase is IN_REPAYMENT
         require(currentPhase == CampaignPhase.IN_REPAYMENT, "The campaign is not in repayment phase, so it can not repay funds");
 
-        //Recieve the transfer of the USDC token from the investor to the smart contract
-        usdcToken.transferFrom(msg.sender, address(this), _amount);
+        //Validate the amount to be repayed
+        require(_amount >=100 && _amount<=investmentGoal, "The amount to be repayed must be greater than 100 USD and less than the total investment goal");
+
+        //Transfer the debt repayment from issuer to smart contract
+        bool sent = usdcToken.transferFrom(msg.sender, address(this), _amount);
+        require(sent, "Error on transfering debt repayment from issuer to smart contract");
 
         //Update the repayed debt amount in the smart contract
         repayedDebtAmount = repayedDebtAmount + _amount;
 
         //Iterate over each investor to write down the distribution of the repayment funds
-        for (uint256 i = 0; i < numberOfInverstors; i++) {
+        for (uint256 i = 0; i < numberOfInvestors; i++) {
 
             //Obtain the address of the current investor in the index of investor addresses
             address addressToTransfer = indexOfInvestorAddresses[i];
 
             //Write down the distribution of the repayment funds, based on the invested percentage of each investor
             uint256 amountOfInvestorTokens = balanceOf(addressToTransfer);
-            balanceOfRepayedFunds[addressToTransfer] = _amount * (amountOfInvestorTokens/totalSupply());
+            uint256 amountToRepayToInvestor = (_amount * amountOfInvestorTokens) / totalSupply();
+
+            balanceOfRepayedFunds[addressToTransfer] = amountToRepayToInvestor;
         }
 
         //Emit the event to log the related information
@@ -299,21 +323,23 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         require(currentPhase == CampaignPhase.IN_REPAYMENT, "The campaign is not in repayment phase, so investors can not withdraw funds yet");
 
         //Validate the amount to withdraw is greater than zero and less than the balance
-        require(_amount>0 && _amount <= balanceOfRepayedFunds[msg.sender], "Amount to withdraw must be greater than zero and less than balance of investor");
+        require(_amount>10 && _amount <= balanceOfRepayedFunds[msg.sender], "Amount to withdraw must be greater than 10 USD and less than balance of investor");
 
         //First decrease the balance to take care of rentrancy attacks
         balanceOfRepayedFunds[msg.sender] -= _amount;
 
         //Transfer USDC that the smart contract has to the investor, proportional to his investment
-        usdcToken.transfer(msg.sender, _amount);
+        bool sent =  usdcToken.transfer(msg.sender, _amount);
+        require(sent, "Error on transfering USDC that the smart contract has to the investor, porportional to his investment");
+        
 
         //Emit the event to log the related information
         emit PaymentWithdrawn(campaignID, msg.sender, _amount);
-
+        
     }
 
     //Function: Execute if the campaign did not reach the investment goal
-    function abortCampaign () public onlyOwner {
+    function abortCampaign() public onlyOwner {
 
         //Validate the campaign phase is NEW_CAMPAIGN of IN_FUNDING
         require(currentPhase == CampaignPhase.NEW_CAMPAIGN || currentPhase == CampaignPhase.IN_FUNDING, "The campaign is not in New campaign nor in Funding phase");
@@ -324,23 +350,23 @@ contract TokenMVP is ERC20, Pausable, Ownable {
         emit CampaignAborted(campaignID);
     }
 
-    //ToDo: Take all the investment made back, useful when a campaign gets aborted
+    //ToDo: Take the investment made back, useful when a campaign gets aborted
     function retakeInvestment (uint256 _amount) public {
 
         require(currentPhase == CampaignPhase.ABORTED, "The campaign is not in aborted phase");
 
         //Validate the amount to withdraw is greater than zero and less than the invested balance
-        require(_amount>0 && _amount <= balanceOfInvestedFunds[msg.sender], "Amount to withdraw must be greater than zero and less than balance of investor");
+        require(_amount>10 && _amount <= balanceOfInvestedFunds[msg.sender], "Amount to withdraw must be greater than 10 USD and less than balance of investor");
 
         //First decrease the balance to take care of rentrancy attacks
         balanceOfInvestedFunds[msg.sender] -= _amount;
 
         //Transfer USDC that the smart contract has to the investor, proportional to his investment
-        usdcToken.transfer(msg.sender, _amount);
+        bool sent =  usdcToken.transfer(msg.sender, _amount);
+        require(sent, "Error on transfering USDC that the smart contract has to the investor, porportional to his investment");
 
         //Emit the event to log the related information
         emit InvestmentRetaken(campaignID, msg.sender, _amount);
-
     }
 
 
@@ -348,6 +374,17 @@ contract TokenMVP is ERC20, Pausable, Ownable {
     Utility functions
     */
 
+    function investorIsAlreadyIndexed(address _address) public view returns (bool) {
+        
+        for(uint256 i = 0; i<numberOfInvestors ;i++){
+
+            if(indexOfInvestorAddresses[i] == _address)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /*
     Libraries functions

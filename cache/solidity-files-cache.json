@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\contracts\\TokenMVP.sol": {
-      "lastModificationDate": 1687709061393,
-      "contentHash": "3f6c9b05ff8b1be8169b248a81318946",
-      "sourceName": "contracts/TokenMVP.sol",
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\contracts\\ERC20TokenUSDC.sol": {
+      "lastModificationDate": 1687667071782,
+      "contentHash": "2f017c698a8300d02de9e8dfab258146",
+      "sourceName": "contracts/ERC20TokenUSDC.sol",
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -30,16 +30,87 @@
       },
       "imports": [
         "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/security/Pausable.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol"
       ],
       "versionPragmas": [
         "^0.8.9"
       ],
       "artifacts": [
-        "TokenMVP",
-        "USDCToken"
+        "ERC20TokenUSDC"
       ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1687576155440,
+      "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\draft-ERC20Permit.sol": {
+      "lastModificationDate": 1687576152171,
+      "contentHash": "0ebe4a60af340ba617d3fb68db43c990",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ERC20Permit.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": []
     },
     "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
       "lastModificationDate": 1687576153576,
@@ -80,80 +151,6 @@
         "ERC20"
       ]
     },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\security\\Pausable.sol": {
-      "lastModificationDate": 1687576155460,
-      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
-      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Pausable"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1687576155440,
-      "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
-      ]
-    },
     "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
       "lastModificationDate": 1687576151271,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
@@ -187,6 +184,193 @@
       ],
       "artifacts": [
         "Context"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Permit.sol": {
+      "lastModificationDate": 1687576153691,
+      "contentHash": "c8946432e6d37418cb12a15668e3c0cd",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20Permit.sol",
+        "../ERC20.sol",
+        "../../../utils/cryptography/ECDSA.sol",
+        "../../../utils/cryptography/EIP712.sol",
+        "../../../utils/Counters.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20Permit"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\ECDSA.sol": {
+      "lastModificationDate": 1687576152431,
+      "contentHash": "d822a8a9468649cab463f29f5decf5cc",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ECDSA"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\EIP712.sol": {
+      "lastModificationDate": 1687576152450,
+      "contentHash": "459aeb9cc3fc3c6d67d30ffefb724aba",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ECDSA.sol",
+        "../ShortStrings.sol",
+        "../../interfaces/IERC5267.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "EIP712"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
+      "lastModificationDate": 1687576151295,
+      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
+      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Permit.sol": {
+      "lastModificationDate": 1687576154901,
+      "contentHash": "aa849939a4ae83a4dcb2dca9b3e9e707",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Permit"
       ]
     },
     "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
@@ -259,339 +443,6 @@
       ],
       "artifacts": [
         "IERC20Metadata"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\contracts\\ERC20TokenUSDC.sol": {
-      "lastModificationDate": 1687667071782,
-      "contentHash": "2f017c698a8300d02de9e8dfab258146",
-      "sourceName": "contracts/ERC20TokenUSDC.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.9"
-      ],
-      "artifacts": [
-        "ERC20TokenUSDC"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\draft-ERC20Permit.sol": {
-      "lastModificationDate": 1687576152171,
-      "contentHash": "0ebe4a60af340ba617d3fb68db43c990",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./ERC20Permit.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": []
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Permit.sol": {
-      "lastModificationDate": 1687576153691,
-      "contentHash": "c8946432e6d37418cb12a15668e3c0cd",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC20Permit.sol",
-        "../ERC20.sol",
-        "../../../utils/cryptography/ECDSA.sol",
-        "../../../utils/cryptography/EIP712.sol",
-        "../../../utils/Counters.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC20Permit"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1687576151295,
-      "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
-      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Counters"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\EIP712.sol": {
-      "lastModificationDate": 1687576152450,
-      "contentHash": "459aeb9cc3fc3c6d67d30ffefb724aba",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./ECDSA.sol",
-        "../ShortStrings.sol",
-        "../../interfaces/IERC5267.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.8"
-      ],
-      "artifacts": [
-        "EIP712"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\ECDSA.sol": {
-      "lastModificationDate": 1687576152431,
-      "contentHash": "d822a8a9468649cab463f29f5decf5cc",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../Strings.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ECDSA"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Permit.sol": {
-      "lastModificationDate": 1687576154901,
-      "contentHash": "aa849939a4ae83a4dcb2dca9b3e9e707",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC20Permit"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC5267.sol": {
-      "lastModificationDate": 1687576155031,
-      "contentHash": "b1756048024350a162c3be27c04aa652",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC5267.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC5267"
-      ]
-    },
-    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\ShortStrings.sol": {
-      "lastModificationDate": 1687576156540,
-      "contentHash": "8dde288da49722a70f34ee369be4bfba",
-      "sourceName": "@openzeppelin/contracts/utils/ShortStrings.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./StorageSlot.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.8"
-      ],
-      "artifacts": [
-        "ShortStrings"
       ]
     },
     "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
@@ -702,6 +553,78 @@
         "SignedMath"
       ]
     },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\ShortStrings.sol": {
+      "lastModificationDate": 1687576156540,
+      "contentHash": "8dde288da49722a70f34ee369be4bfba",
+      "sourceName": "@openzeppelin/contracts/utils/ShortStrings.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./StorageSlot.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "ShortStrings"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC5267.sol": {
+      "lastModificationDate": 1687576155031,
+      "contentHash": "b1756048024350a162c3be27c04aa652",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC5267.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC5267"
+      ]
+    },
     "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\utils\\StorageSlot.sol": {
       "lastModificationDate": 1687576156580,
       "contentHash": "682f7dd1f2e1147c8390e7575deceb2d",
@@ -735,6 +658,119 @@
       ],
       "artifacts": [
         "StorageSlot"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\@openzeppelin\\contracts\\security\\Pausable.sol": {
+      "lastModificationDate": 1687576155460,
+      "contentHash": "25c8108f36fdd472bc78d4c4af240c11",
+      "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Pausable"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\contracts\\TokenMVP.sol": {
+      "lastModificationDate": 1688183733729,
+      "contentHash": "57034dfa868ece659144ba3cc8eb77af",
+      "sourceName": "contracts/TokenMVP.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/security/Pausable.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "TokenMVP",
+        "USDCToken"
+      ]
+    },
+    "D:\\USER\\Downloads\\0xCOURSES\\Alchemy University\\alchemy_university-graduation_project\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1687576160970,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }
